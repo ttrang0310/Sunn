@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -80,14 +81,14 @@
 
     <div class="container" style="width: fit-content;  " method="post">
         <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder=" Username......" name="usename" required>
+        <input id="username" type="text" placeholder=" Username......" name="usename" required>
 
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Password..." name="password" required>
+        <input id="password" type="password" placeholder="Password..." name="password" required>
 
-        <a href="./management.html" class="">
-            <button type="button" class="btn btn-link" name="login" style="background-color: black;">Đăng nhập</button>
-        </a>
+        <!-- <a href="./management.html" class=""> -->
+            <button onclick="signIn()" type="button" class="btn btn-link" name="login" style="background-color: black;">Đăng nhập</button>
+        <!-- </a> -->
         <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
     </label>
@@ -95,5 +96,19 @@
 </body>
 
 </html>
+<script>
+    function signIn(){
+        var username = document.getElementById("username").value
+        var password = document.getElementById("password").value
+        axios.post('http://192.168.1.100:5001/login', {email: username, password: password})
+        .then(r => {
+            localStorage.setItem('login_status', 'logged')
+            location.href = 'homepage.html'
+        })
+        .catch(function (error) {
+            alert(error.response.data.msg)
+        })
+    }
+</script>
 
 <!-- search,them,sua,xoa,update,time -->
