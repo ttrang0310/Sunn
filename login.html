@@ -100,9 +100,12 @@
     function signIn(){
         var username = document.getElementById("username").value
         var password = document.getElementById("password").value
-        axios.post('http://192.168.1.100:5001/login', {email: username, password: password})
+        axios.post('http://192.168.31.15:5001/login', {email: username, password: password})
         .then(r => {
             localStorage.setItem('login_status', 'logged')
+            localStorage.setItem('email', r.data.msg.email)
+            localStorage.setItem('id', r.data.msg.id)
+            localStorage.setItem('email', r.data.msg.name)
             location.href = 'homepage.html'
         })
         .catch(function (error) {
